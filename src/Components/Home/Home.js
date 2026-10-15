@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { getAllLessons, Lessons } from "/src/Services/ParseService.js";
 import FeedList from "./FeedList";
 // import useFetch from "../../Services/useFetch.js";
+import { useParams } from "react-router-dom";
 
 /* MAIN MODULE WITH STATEFUL PARENT AND STATELESS CHILD */
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
   const [transactionType, setTransactionType] = useState("All");   // Stores transaction type selected by user
   const [query, setQuery] = useState("");   // Stores text entered in search box
   const [likes, setLikes] = useState([]);   // Stores meals that user liked
+  const { id } = useParams();  // Get the user ID from the URL parameters
    
 
   // UseEffect to run when the page loads to
