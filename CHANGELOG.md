@@ -2,10 +2,14 @@
 
 ## [0.2.0] - 2026-10-16
 
-Here we have an example of one of the features
-
 **Added**
+
+- Configured vite build system
+- Navbar with routing to Home or Profile page
+- Loading Asynchronous data with parse
+- Parse models and services for Posts and Comments
+- Added profile component tree branch
 
 **Changed**
 
-**Fixed**
+- Changed data loading from JSON to Parse from Back4App
