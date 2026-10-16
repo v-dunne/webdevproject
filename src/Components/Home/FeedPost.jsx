@@ -10,8 +10,8 @@ export default function FeedPost({
 }) {
   const postId = post.id;
   const cookName = post.get("cookName") || "Unknown cook";
-  const location = post.get("loaction") || "";
-  const imageUrl = post.get(imageUrl);
+  const location = post.get("location") || "";
+  const imageUrl = post.get("imageUrl") || null;
   const title = post.get("title") || "Untitled meal";
   const description = post.get("description") || "";
   const dietaryTags = post.get("dietaryTags") || [];
