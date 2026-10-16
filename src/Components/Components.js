@@ -18,5 +18,3 @@ const Components = () => {
 };
 
 export default Components;
-
-// routing

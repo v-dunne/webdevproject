@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FeedList from "./FeedList";
-import { useParams } from "react-router-dom";
+// We need to import the Post.js and Comment.js Parse models and utilize the functions to getAllMeals and getCommentsByPostID, etc.
+
 
 /* MAIN MODULE WITH STATEFUL PARENT AND STATELESS CHILD */
 const Home = () => {
@@ -12,8 +13,6 @@ const Home = () => {
   const [transactionType, setTransactionType] = useState("All");   // Stores transaction type selected by user
   const [query, setQuery] = useState("");   // Stores text entered in search box
   const [likes, setLikes] = useState([]);   // Stores meals that user liked
-  
-   
 
   // UseEffect to run when the page loads to
   // obtain async data and render

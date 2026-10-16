@@ -4,21 +4,6 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
 
-// added from Kickoff 4 - lmk if any needs to be removed
-// import React from "react";
-// import Home from "./Components/Home/Home.js";
-// import * as Env from "./environments";
-// import Parse from "parse";
-
-// Parse.initialize(Env.APPLICATION_ID, Env.JAVASCRIPT_KEY);
-// Parse.serverURL = Env.SERVER_URL;
-
-// function App() {
-//   return <Main />;
-// }
-
-// export default App;
-
 function App() {
   const [count, setCount] = useState(0)
 
