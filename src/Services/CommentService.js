@@ -1,52 +1,54 @@
-// create operation - create a comment for post
-export const createComment = (
+import Parse from "parse";
+
+const Comment = Parse.Object.extend("Comment");
+
+// CREATE - create a comment associated with a post.
+export const createComment = ({
+  userId, // This is the temporary userId string. In the future, we may want to get the userId from the current user session and make this a pointer to the _User class instead of a string.
+  firstName,
+  lastName,
+  userComment,
+  postId,
+}) => {
+  if (!postId) {
+    throw new Error("A post ID is required to create a comment.");
+  }
+  
+
+  // Creates a lightweight pointer to the post object
+  const post = Parse.Object.createWithoutData("Post", postId);
+  const comment = new Comment({
     userId,
     firstName,
     lastName,
     userComment,
-    postId
-) => {
-    const Comment = Parse.Object.extend("Comment");
-    const comment = new Comment();
+    postPointer: post,
+  });
 
-    const Post = Parse.Object.extend("Post");
-    const post = new Post();
-    post.id = postId;
-
-    comment.set("userId", userId);
-    comment.set("firstName", firstName);
-    comment.set("lastName", lastName);
-    comment.set("userComment", userComment);
-    comment.set("postPointer", post);
-
-    return comment.save().then((result) => {
-        return result;
-    });
+  return comment.save();
 };
 
-// read operation - get comment by id
+
+// READ - read a comment by its Parse object ID.
 export const getCommentById = (id) => {
-    const Comment = Parse.Object.extend("Comment");
-    const query = new Parse.Query(Comment);
+  if (!id) {
+    throw new Error("A comment ID is required.");
+  }
 
-    return query.get(id).then((result) => {
-        return result;
-    });
+  return new Parse.Query(Comment).get(id);
 };
 
-// read operation - get comment by id
-export const getCommentByPostId = (postId) => {
-    const Comment = Parse.Object.extend("Comment");
-    const query = new Parse.Query(Comment);
 
-    const Post = Parse.Object.extend("Post");
-    const post = new Post();
-    post.id = postId;
+// READ - read comments for a post, oldest first.
+export const getCommentsByPostId = (postId) => {
+  if (!postId) {
+    throw new Error("A post ID is required.");
+  }
 
-    query.equalTo("postPointer", post);
-    query.ascending("createdAt");
+  const post = Parse.Object.createWithoutData("Post", postId);
 
-    return query.find().then((results) => {
-        return results
-    })
-}
+  return new Parse.Query(Comment)
+    .equalTo("postPointer", post)
+    .ascending("createdAt")
+    .find();
+};

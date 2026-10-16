@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getCommentByPostId, createComment } from "../../Services/CommentService.js";
+import { getCommentsByPostId, createComment } from "../../Services/CommentService.js";
 
 export default function CommentSection({ postId }) {
   // Local state for comments and the new comment input field
@@ -15,7 +15,7 @@ export default function CommentSection({ postId }) {
         setLoading(true);
         setError("");
 
-        const data = await getCommentByPostId(postId);
+        const data = await getCommentsByPostId(postId);
         setComments(data);
       } catch (error) {
         console.error("Error loading comments:", error);

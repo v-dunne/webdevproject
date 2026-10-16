@@ -1,22 +1,27 @@
 import { useState, useEffect } from "react";
-import { getMealFeed } from "../../Services/PostService.js"; // import getMealFeed
-import FeedList from "./FeedList.jsx"; // import FeedList
+import { getAllPosts } from "../../Services/PostService.js";
+import FeedList from "./FeedList.jsx";
 
+/**
+ * The Home component, which displays the feed of meals and allows users to filter, search, like, and request swaps for meals.
+ * @returns {JSX.Element} The Home component.
+ */
 function Home() {
-  const [meals, setMeals] = useState([]);  // Stores meal data loaded from JSON file
-  const [filter, setFilter] = useState("All");   // Stores dietary tag selected by user
-  const [transactionType, setTransactionType] = useState("All");   // Stores transaction type selected by user
-  const [query, setQuery] = useState("");   // Stores text entered in search box
-  const [likes, setLikes] = useState([]);   // Stores meals that user liked
+  // State variables
+  const [posts, setPosts] = useState([]);
+  const [filter, setFilter] = useState("All");
+  const [transactionType, setTransactionType] = useState("All"); 
+  const [query, setQuery] = useState("");
+  const [likes, setLikes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Loads meal data when Feed component is first rendered
+  // Load posts from Parse when component mounts
   useEffect(() => {
-    const loadMeals = async () => {
+    const loadPosts = async () => {
       try {
-        const data = await getMealFeed();
-        setMeals(data);
+        const data = await getAllPosts();
+        setPosts(data);
       } catch (error) {
         console.error("Error loading posts:", error);
         setError("Could not load posts. Please try again.");
@@ -25,7 +30,7 @@ function Home() {
       }
     };
 
-    loadMeals();
+    loadPosts();
   }, []);
 
   // Updates filter when user selects different option
@@ -43,7 +48,7 @@ function Home() {
     setQuery(e.target.value);
   };
 
-  // Adds/removes meal from user's liked meals
+  // Adds/removes post from user's liked posts
   const handleLike = (postId) => {
     if (likes.includes(postId)) {
       setLikes(likes.filter((id) => id !== postId));
@@ -58,11 +63,11 @@ function Home() {
   };
 
   // Filter posts using fileds from parse post objects
-  const filteredMeals = meals.filter((post) => {
+  const filteredMeals = posts.filter((post) => {
     const dietaryTags = post.get("dietaryTags") || [];
     const title = post.get("title") || "";
     const cookName = post.get("cookName") || "";
-    const postTransactionType = post.get("transactionType");
+    // const postTransactionType = post.get("transactionType");
 
     if (filter !== "All" && !dietaryTags.includes(filter)) {
       return false;
@@ -94,7 +99,7 @@ function Home() {
 
       <label htmlFor="dietary-filter">Filter Meals: </label>
 
-      <select id="dietary-filter" value={filter} onchange={handleFilterChange}>
+      <select id="dietary-filter" value={filter} onChange={handleFilterChange}>
         <option value="All">All</option>
         <option value="High-Protein">High-Protein</option>
         <option value="Nut-Free">Nut-Free</option>
@@ -106,7 +111,7 @@ function Home() {
 
       <label htmlFor="transaction-filter">Transaction Type: </label>
 
-      <select id="transaction-filter" value={transactionType} onchange={handleTransactionChange}>
+      <select id="transaction-filter" value={transactionType} onChange={handleTransactionChange}>
         <option value="All">All</option>
         <option value="Swap Only">Swap Only</option>
         <option value="Sell Only">Sell Only</option>
@@ -122,7 +127,7 @@ function Home() {
         id="meal-search"
         type="text"
         value={query}
-        oninput={handleSearchChange}
+        onChange={handleSearchChange}
         placeholder="Search"
       />
 
