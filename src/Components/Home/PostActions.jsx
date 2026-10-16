@@ -8,7 +8,7 @@ export default function PostActions({ postId, cookName, isLiked, onLike, onReque
       {isLiked ? '❤️ Liked' : '🤍 Like'}
     </button>
     <button 
-      class="swap-btn" 
+      className="swap-btn" 
       onClick={() => onRequestSwap(postId, cookName)}
     >
       Request Swap 🔄

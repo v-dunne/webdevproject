@@ -10,13 +10,15 @@ export const createComment = ({
   userComment,
   postId,
 }) => {
+  console.log(postId);
   if (!postId) {
     throw new Error("A post ID is required to create a comment.");
   }
   
 
   // Creates a lightweight pointer to the post object
-  const post = Parse.Object.createWithoutData("Post", postId);
+  const Post = Parse.Object.extend("Post");
+  const post = Post.createWithoutData(postId);
   const comment = new Comment({
     userId,
     firstName,
@@ -45,7 +47,8 @@ export const getCommentsByPostId = (postId) => {
     throw new Error("A post ID is required.");
   }
 
-  const post = Parse.Object.createWithoutData("Post", postId);
+  const Post = Parse.Object.extend("Post");
+  const post = Post.createWithoutData(postId);
 
   return new Parse.Query(Comment)
     .equalTo("postPointer", post)

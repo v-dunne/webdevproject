@@ -42,15 +42,16 @@ export default function CommentSection({ postId }) {
 
     try {
       setError("");
-
       // temp identity until user auth created
-      const savedComment = await createComment(
-        "guest",
-        "You",
-        "",
-        text,
-        postId
-      );
+      const savedComment = await createComment({
+        userId: "guest",
+        firstName: "You",
+        lastName: "",
+        userComment: text,
+        postId: postId,
+      });
+
+      console.log(text, postId);
 
       setComments((previousComments) => [
         ...previousComments,
@@ -87,13 +88,13 @@ export default function CommentSection({ postId }) {
         })}
       </div>
 
-      <form onSubmit={handleSubmit} class="comment-form">
+      <form onSubmit={handleSubmit} className="comment-form">
         <input 
           type="text" 
           value={newComment} 
           onInput={handleInput} 
           placeholder="Ask a question or leave a note..." 
-          class="comment-input"
+          className="comment-input"
         />
         <button type="submit" className="comment-btn" disabled={!newComment.trim()}>Post</button>
       </form>

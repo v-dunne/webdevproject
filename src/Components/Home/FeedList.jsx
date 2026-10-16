@@ -4,7 +4,7 @@ export default function FeedList({ meals, likes, onLike, onRequestSwap }) {
   return (
     <div className="feed-posts">
       {meals.map((post) => {
-        const postId = post.id
+        const postId = post.id;
         const isLiked = likes.includes(postId);
 
         return (
