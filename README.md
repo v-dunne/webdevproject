@@ -1,3 +1,8 @@
+# Contributors
+
+- Matthew Oatman moatman2@nd.edu
+- Veronica Dunne vdunne@nd.edu
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
