@@ -2,6 +2,7 @@ import Home from "./Home/Home.jsx";
 import Profile from "./Profile/ProfilePage.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Navigation/Navbar.jsx";
+import ProtectedRoute from "../Services/ProtectedRoute.js";
 
 const Components = () => {
   return (
@@ -15,6 +16,11 @@ const Components = () => {
         - creating account
         - making post
         - login */}
+
+        <Route path="/login" element={<AuthLogin />} />
+        <Route path="/" element={<ProtectedRoute element={Home} />} />
+        <Route path="/register" element={<AuthRegister />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );
