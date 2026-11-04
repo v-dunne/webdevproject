@@ -45,3 +45,11 @@ export const logoutUser = async () => {
 export const getCurrentUser = () => {
     return Parse.User.current();
 };
+
+/**
+ * Check user authentication status
+ * @returns {boolean} - Returns true if the user is authenticated, false otherwise.
+ */
+export const checkUserAuth = () => {
+    return getCurrentUser()?.authenticated();
+}

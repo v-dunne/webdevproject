@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getAllPosts } from "../../Services/PostService.js";
 import FeedList from "./FeedList.jsx";
+import Navbar from "../Navigation/Navbar.jsx";
 
 /**
  * The Home component, which displays the feed of meals and allows users to filter, search, like, and request swaps for meals.
@@ -92,6 +93,8 @@ function Home() {
 
   return (
     <div className="feed">
+      <Navbar />
+
       <h1>Campus Food Feed</h1>
       <p>See what people are cooking around campus!</p>
 
