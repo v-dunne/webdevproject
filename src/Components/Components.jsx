@@ -10,15 +10,15 @@ const Components = () => {
       <Navbar />
       
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Profile/1" element={<Profile />} />
+        <Route path="/" element={<ProtectedRoute element={Home} />} />
+        <Route path="/Profile/1" element={<ProtectedRoute element={Profile} />} />
+       
         {/* Future routes can be added here as needed 
         - creating account
         - making post
         - login */}
 
         <Route path="/login" element={<AuthLogin />} />
-        <Route path="/" element={<ProtectedRoute element={Home} />} />
         <Route path="/register" element={<AuthRegister />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>

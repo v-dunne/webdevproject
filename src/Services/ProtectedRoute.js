@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { checkUserAuth } from "../Auth/AuthService"
 
-const ProtectedRoute = ({element: Component}) => {
+const ProtectedRoute = ({element: Component, ...rest }) => {
     const navigate = useNavigate();
+
 
     const buttonHandler = () => {
         navigate("/login");
@@ -10,16 +12,11 @@ const ProtectedRoute = ({element: Component}) => {
     const isAuthenticated = Boolean(Parse.User.current() && Parse.User.current().authenticated());
 
     return (
-        <div>
-            {isAuthenticated ? (
+            isAuthenticated ? (
                 <Component />
             ) : (
-                <div>
-                    <p>Unauthorized!</p>
-                    <button onClick={buttonHandler}>Go Back </button>
-                </div>
-            )}
-        </div>
+                <Navigate to="\login" replace />
+            )
     );
 
 };
