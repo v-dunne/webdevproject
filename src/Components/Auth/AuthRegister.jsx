@@ -27,7 +27,7 @@ const AuthRegister = () => {
         try {
             const createdUser = await createUser(newUser);
             if (createdUser) {
-                alert(`${createdUser.get("firstName")}, you successfully registered!`);
+                alert(`${newUser.get("firstName")}, you successfully registered!`);
                 navigate("/");
             } 
         } catch (error) {
