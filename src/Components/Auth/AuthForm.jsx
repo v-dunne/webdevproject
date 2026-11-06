@@ -27,6 +27,7 @@ const AuthForm = ({ user, isLogin, onChildChange, onSubmit }) => {
               value={user.lastName}
               onChange={onChildChange}
               name="lastName"
+              placeholder="last name"
               required
             />
           </div>{" "}
@@ -45,6 +46,7 @@ const AuthForm = ({ user, isLogin, onChildChange, onSubmit }) => {
             value={user.email}
             onChange={onChildChange}
             name="email"
+            placeholder="email"
             required
           />
         </div>{" "}
@@ -59,6 +61,7 @@ const AuthForm = ({ user, isLogin, onChildChange, onSubmit }) => {
             onChange={onChildChange}
             name="password"
             min="0"
+            placeholder="password"
             required
           />
         </div>

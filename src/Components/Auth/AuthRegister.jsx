@@ -9,6 +9,8 @@ const AuthRegister = () => {
 
     // Create state hook for current user
     const [newUser, setNewUser] = useState({
+        firstName: "",
+        lastName: "",
         email: "",
         password: "",
     });
@@ -25,11 +27,8 @@ const AuthRegister = () => {
         e.preventDefault();
         if (!newUser ) return;
         try {
-            const createdUser = await createUser(newUser);
-            if (createdUser) {
-                alert(`${newUser.get("firstName")}, you successfully registered!`);
-                navigate("/");
-            } 
+            await createUser(newUser);
+            navigate("/", { replace: true });
         } catch (error) {
             console.error("Registration failed:", error);
             alert("Unable to register. Please check your email and password.");
@@ -38,11 +37,8 @@ const AuthRegister = () => {
 
     const onChangeHandler = (e) => {
         e.preventDefault();
-        console.log(e.target);
         const { name, value: newValue } = e.target;
-        console.log(newValue);
-
-        setNewUser({...newUser, [name]: newValue});
+        setNewUser((user) => ({...user, [name]: newValue}));
     };
 
     return (

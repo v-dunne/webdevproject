@@ -88,7 +88,27 @@ function Home() {
   }
 
   if (error) {
-    return <p>{error}</p>
+    return (
+      <div role="alert">
+        <p>{error}</p>
+        <button
+          type="button"
+          onClick={() => {
+            setError("");
+            setLoading(true);
+            getAllPosts()
+              .then(setPosts)
+              .catch((loadError) => {
+                console.error("Error retrying posts:", loadError);
+                setError("Could not load posts. Please try again.");
+              })
+              .finally(() => setLoading(false));
+          }}
+        >
+          Try again
+        </button>
+      </div>
+    );
   }
 
   return (

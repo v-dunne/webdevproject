@@ -28,6 +28,13 @@
   border-radius: 0.25rem;
 }
 
+button.link {
+  font: inherit;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
 .link:hover,
 .active {
   background: rgb(147, 147, 248);

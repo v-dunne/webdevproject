@@ -25,13 +25,8 @@ const AuthLogin = () => {
         e.preventDefault();
         if (!currentUser ) return;
         try {
-            const userLoggedIn = await loginUser(currentUser);
-            if (userLoggedIn) {
-                alert(`${userLoggedIn.get("firstName")}, you successfully logged in!`);
-                navigate("/");
-            } else {
-                alert("Incorrect email or password.");
-            }
+            await loginUser(currentUser);
+            navigate("/", { replace: true });
         } catch (error) {
             console.error("Login failed:", error);
             alert("Unable to log in. Please check your email and password.");
@@ -40,11 +35,8 @@ const AuthLogin = () => {
 
     const onChangeHandler = (e) => {
         e.preventDefault();
-        console.log(e.target);
         const { name, value: newValue } = e.target;
-        console.log(newValue);
-
-        setCurrentUser({...currentUser, [name]: newValue});
+        setCurrentUser((user) => ({...user, [name]: newValue}));
     };
 
     return (

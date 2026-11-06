@@ -49,8 +49,23 @@ export const getPostById = (id) => {
 };
 
 // READ - get all posts, sorted by creation date (newest first)
-export const getAllPosts = () => {
-  return new Parse.Query(Post).descending("createdAt").find();
+export const getAllPosts = async () => {
+  let lastError;
+
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      return await new Parse.Query(Post)
+        .descending("createdAt")
+        .find();
+    } catch (error) {
+      lastError = error;
+      if (attempt === 0) {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+    }
+  }
+
+  throw lastError;
 };
 
 // READ - read posts containing a dietary tag, newest first.

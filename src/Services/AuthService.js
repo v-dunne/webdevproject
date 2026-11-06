@@ -6,7 +6,13 @@ import Parse from 'parse';
  * @returns {Promise<Parse.User>} A promise that resolves to the logged-in user.
  */
 export const loginUser = async (user) => {
-    return await Parse.User.logIn(user.username, user.password);
+    const username = user.username || user.email;
+
+    if (!username || !user.password) {
+        throw new Error("Username/email and password are required.");
+    }
+
+    return Parse.User.logIn(username, user.password);
 };
 
 /**
@@ -15,19 +21,19 @@ export const loginUser = async (user) => {
  * @returns {Promise<Parse.User>} A promise that resolves to the newly created user.
  */
 export const createUser = async (newUser) => {
+    if (!newUser.email || !newUser.password) {
+        throw new Error("Email and password are required.");
+    }
+
     const user = new Parse.User();
 
     user.set("username", newUser.username || newUser.email);
     user.set("password", newUser.password);
     user.set("email", newUser.email);
+    if (newUser.firstName) user.set("firstName", newUser.firstName);
+    if (newUser.lastName) user.set("lastName", newUser.lastName);
 
-    console.log("user: ", user);
-
-    return user.signUp().then((result)=>{
-        return result;
-    }).catch((error) => {
-        alert(`Error: ${error.message}`)
-    })
+    return user.signUp();
 };
 
 /**
@@ -51,5 +57,5 @@ export const getCurrentUser = () => {
  * @returns {boolean} - Returns true if the user is authenticated, false otherwise.
  */
 export const checkUserAuth = () => {
-    return getCurrentUser()?.authenticated();
+    return Boolean(getCurrentUser()?.authenticated());
 }
